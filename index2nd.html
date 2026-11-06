@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#EE6A31" />
+  <title>YEONWOO | Personal Terminal</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap');
+    :root{--navy:#081522;--navy2:#0c1e30;--line:rgba(182,207,225,.17);--muted:#9fb0bf;--white:#f6f9fb;--accent:#d5fa53;--accent2:#c3e745;--font:'Manrope','Noto Sans KR',sans-serif;--mono:'DM Mono',monospace}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#e9edf0;color:var(--white);font-family:var(--font);-webkit-font-smoothing:antialiased}button,a{font:inherit}a{text-decoration:none;color:inherit}button{cursor:pointer}::selection{background:var(--accent);color:#081522}
+    .app{min-height:100vh;background:var(--navy);overflow:hidden;position:relative}.app:before{content:"";position:absolute;top:90px;left:-180px;width:700px;height:680px;background:radial-gradient(circle,rgba(29,78,94,.18),transparent 68%);pointer-events:none}.wrap{width:min(1280px,calc(100% - 96px));margin:auto;position:relative;z-index:1}
+    .topbar{border-bottom:1px solid var(--line)}.topbar-inner{height:85px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:flex;align-items:center;gap:13px;font-weight:800;letter-spacing:-.05em;font-size:17px}.brand-icon{width:36px;height:36px;border:1px solid var(--accent);border-radius:10px;display:grid;place-items:center;color:var(--accent)}.brand small{font-family:var(--mono);font-weight:400;letter-spacing:.1em;display:block;color:var(--muted);font-size:9px;margin-top:4px}.nav{display:flex;align-items:center;gap:33px}.nav a{font-size:12px;color:#b4c3ce;font-weight:700;transition:.2s}.nav a:hover,.nav a:focus-visible{color:var(--accent)}.top-status{font-family:var(--mono);font-size:10px;letter-spacing:.1em;display:flex;align-items:center;gap:9px;color:#d1dde6}.dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px rgba(213,250,83,.6)}
+    .eyebrow{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}.hero{display:grid;grid-template-columns:1.12fr .88fr;gap:48px;align-items:center;min-height:580px;padding:78px 0 70px}.hero-heading{font-size:clamp(52px,6.6vw,98px);line-height:1.05;letter-spacing:-.075em;margin:26px 0 27px;font-weight:800}.hero-heading span{color:var(--accent)}.hero-desc{max-width:480px;color:#aebdc9;font-size:15px;line-height:1.95;word-break:keep-all}.hero-actions{display:flex;gap:13px;margin-top:39px;flex-wrap:wrap}.btn{min-height:48px;padding:0 21px;display:inline-flex;align-items:center;justify-content:center;gap:20px;border:1px solid var(--line);border-radius:7px;font-weight:800;font-size:12px;transition:transform .2s,background .2s,border-color .2s}.btn:hover{transform:translateY(-3px)}.btn-primary{background:var(--accent);border-color:var(--accent);color:#07131d}.btn-primary:hover{background:#e2ff8d}.btn-secondary:hover{border-color:var(--accent);background:rgba(213,250,83,.07)}.arrow{font-size:19px;font-weight:400}
+    .terminal{position:relative;border:1px solid rgba(184,211,233,.2);border-radius:15px;background:linear-gradient(145deg,#102438,#0b1b2b 80%);box-shadow:0 35px 80px #01081160;overflow:hidden}.terminal-top{padding:18px 23px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.terminal-label{font:10px var(--mono);color:var(--muted);letter-spacing:.14em}.signal{display:flex;gap:5px}.signal i{width:5px;height:5px;background:#526476;border-radius:50%}.signal i:first-child{background:var(--accent)}.terminal-main{padding:33px 28px 32px}.flight-kicker{display:flex;justify-content:space-between;font:10px var(--mono);color:#b8c8d4;letter-spacing:.12em}.airport-route{display:flex;align-items:center;justify-content:space-between;gap:13px;margin:23px 0}.airport-code{font-size:clamp(43px,5vw,68px);letter-spacing:-.07em;font-weight:800;line-height:1}.airport-name{font-size:11px;color:#99abba;margin-top:12px}.plane-line{display:flex;align-items:center;gap:8px;color:var(--accent);flex:1}.plane-line .dash{height:1px;border-top:1px dashed #52697b;flex:1}.plane-line svg{transform:rotate(0deg);flex-shrink:0}.flight-info{border-top:1px dashed #405365;padding-top:25px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.flight-info .label{font:10px var(--mono);color:#879eaf;letter-spacing:.06em}.flight-info .value{font-size:13px;font-weight:800;margin-top:9px;white-space:nowrap}.green{color:var(--accent)}.terminal-footer{border-top:1px solid var(--line);background:#10283b;padding:13px 28px;display:flex;justify-content:space-between;align-items:center}.terminal-footer span{font:10px var(--mono);color:#92aabb;letter-spacing:.1em}.barcodes{height:27px;width:105px;background:repeating-linear-gradient(90deg,#96acbb 0px,#96acbb 2px,transparent 2px,transparent 4px,#96acbb 4px,#96acbb 5px,transparent 5px,transparent 8px);opacity:.65}
+    .ticker{background:var(--accent);color:#091520;overflow:hidden}.ticker-inner{height:51px;display:flex;align-items:center;gap:35px;white-space:nowrap;font:10px var(--mono);font-weight:500;letter-spacing:.13em}.ticker-inner b{font-size:16px}.section{padding:91px 0 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:29px}.section-title{font-size:clamp(27px,3.3vw,43px);letter-spacing:-.055em;line-height:1.2;margin:12px 0 0}.section-no{color:#7f97a9;font:11px var(--mono)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:17px}.panel{background:#0e2133;border:1px solid var(--line);border-radius:12px;padding:30px}.panel-label{font:10px var(--mono);letter-spacing:.14em;color:var(--accent);display:flex;justify-content:space-between;align-items:center}.panel h3{font-size:23px;letter-spacing:-.04em;margin:24px 0 15px}.panel p{font-size:13px;color:#a9baca;line-height:1.95;word-break:keep-all;margin:0}.details{display:grid;grid-template-columns:repeat(2,1fr);gap:22px 12px;margin-top:30px}.detail-label{display:block;font:10px var(--mono);letter-spacing:.1em;color:#7f96aa;margin-bottom:8px}.detail-value{font-size:13px;font-weight:800}.tag-list{display:flex;gap:9px;flex-wrap:wrap;margin-top:25px}.tag{padding:10px 13px;border:1px solid #304657;border-radius:6px;color:#d7e3ec;font-size:11px;font-weight:700}.work-card{display:flex;align-items:start;gap:15px;margin-top:22px}.work-num{min-width:35px;height:35px;display:grid;place-items:center;border:1px solid #3b5465;border-radius:7px;font:12px var(--mono);color:var(--accent)}.work-card strong{display:block;font-size:13px;margin-bottom:7px}.work-card p{font-size:12px;line-height:1.7}
+    .destinations{display:grid;grid-template-columns:repeat(3,1fr);gap:17px;margin-top:23px}.dest{position:relative;display:block;min-height:212px;background:#0e2133;border:1px solid var(--line);border-radius:12px;padding:24px;transition:.25s;outline:none}.dest:hover,.dest:focus-visible{transform:translateY(-5px);border-color:var(--accent);background:#142b3c}.dest-top{display:flex;justify-content:space-between;align-items:center;color:#96abbb;font:10px var(--mono);letter-spacing:.09em}.dest-number{font-size:69px;font-weight:800;letter-spacing:-.075em;margin-top:14px;line-height:1;color:var(--white)}.dest-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:17px}.dest-bottom strong{font-size:12px}.dest-arrow{width:30px;height:30px;display:grid;place-items:center;border-radius:50%;background:var(--accent);color:#0b1924;font-size:18px}.foot{padding:67px 0 32px;margin-top:75px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:end;gap:15px}.foot strong{font-size:17px;letter-spacing:-.04em}.foot p,.foot span{font:10px var(--mono);letter-spacing:.06em;color:#8299a9;line-height:1.8}.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,25px);opacity:0;pointer-events:none;background:var(--accent);color:#091520;border-radius:8px;padding:13px 20px;font-size:12px;font-weight:800;box-shadow:0 10px 35px #0005;transition:.25s;z-index:99}.toast.show{opacity:1;transform:translate(-50%,0)}
+    @media(max-width:900px){.wrap{width:min(100% - 48px,1280px)}.hero{grid-template-columns:1fr;gap:48px;padding:65px 0}.terminal{max-width:650px;width:100%}.hero-heading{font-size:clamp(56px,10vw,86px)}.nav{gap:16px}.top-status{display:none}}@media(max-width:600px){.wrap{width:calc(100% - 36px)}.topbar-inner{height:70px}.brand{font-size:14px}.brand-icon{width:32px;height:32px}.nav{gap:13px}.nav a{font-size:10px}.nav a:first-child{display:none}.hero{padding:56px 0 54px;min-height:0;gap:44px}.hero-heading{font-size:clamp(48px,12vw,72px);margin:20px 0}.hero-desc{font-size:13px}.hero-actions{margin-top:26px}.terminal-main{padding:25px 18px}.terminal-top,.terminal-footer{padding-left:18px;padding-right:18px}.airport-code{font-size:48px}.airport-name{font-size:10px}.flight-info .value{font-size:11px}.ticker-inner{height:43px;font-size:9px}.section{padding-top:67px}.grid,.destinations{grid-template-columns:1fr}.panel{padding:24px}.section-title{font-size:31px}.dest{min-height:165px}.dest-number{font-size:57px}.foot{margin-top:60px;flex-direction:column;align-items:flex-start;padding:35px 0}.section-no{display:none}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
+
+    /* Airport terminal / warm orange palette sampled from supplied reference */
+    :root{--navy:#EEDAD1;--navy2:#F7EBE5;--line:rgba(67,40,29,.19);--muted:#735D53;--white:#241B17;--accent:#EE6A31;--accent2:#D95720}
+    body{background:#EEDAD1;color:#241B17}
+    .app{background:#EEDAD1}
+    .app:before{background:radial-gradient(circle,rgba(238,106,49,.11),transparent 70%)}
+    .topbar{background:#EE6A31;border-bottom-color:#D95B26;color:#241B17}
+    .brand-icon{border-color:#241B17;color:#241B17}
+    .brand small,.top-status,.nav a{color:#462A20}
+    .nav a:hover,.nav a:focus-visible{color:#fff7f2}
+    .top-status .dot{background:#241B17;box-shadow:none}
+    .eyebrow{color:#B7481F}
+    .hero-heading span{color:#E65E26}
+    .hero-desc{color:#665248}
+    .btn{border-color:#A98D7F}
+    .btn-primary{color:#21150F}
+    .btn-primary:hover{background:#FF8550}
+    .btn-secondary:hover{background:#F7E7DD;border-color:#EE6A31}
+    .terminal{background:#FAF0E9;border:1px solid #D7B9A9;box-shadow:0 25px 65px rgba(99,49,28,.14)}
+    .terminal-top{background:#EE6A31;border-bottom:1px solid #D55B29}
+    .terminal-label{color:#342017;font-weight:500}
+    .signal i{background:#F9C0A7}.signal i:first-child{background:#241B17}
+    .flight-kicker,.airport-name{color:#806356}
+    .plane-line{color:#E65E26}.plane-line .dash{border-top-color:#CDAFA0}
+    .flight-info{border-top-color:#CAA99B}.flight-info .label{color:#7C6155}
+    .green{color:#B7481F}
+    .terminal-footer{background:#F1D9CC;border-top:1px solid #D5B8A9}
+    .terminal-footer span{color:#71594E}
+    .barcodes{background:repeating-linear-gradient(90deg,#77584A 0px,#77584A 2px,transparent 2px,transparent 4px,#77584A 4px,#77584A 5px,transparent 5px,transparent 8px)}
+    .ticker{background:#EE6A31;color:#2B1C16}
+    .section-no{color:#8C6E60}
+    .panel{background:#FAF0E9;border-color:#DABCAF;box-shadow:0 3px 18px rgba(110,70,54,.035)}
+    .panel-label{color:#B7481F}
+    .panel p{color:#6C584F}.detail-label{color:#8C7064}
+    .tag{border-color:#D5B5A6;color:#503B32;background:#F8E7DC}
+    .work-num{border-color:#E8A181;color:#B7481F;background:#FFF3EA}
+    .dest{background:#FAF0E9;border-color:#DABCAF}
+    .dest:hover,.dest:focus-visible{background:#FFF8F3;border-color:#EE6A31;box-shadow:0 12px 32px rgba(207,88,37,.14)}
+    .dest-top{color:#775D50}
+    .dest-number{color:#2F211B}
+    .dest-arrow{background:#EE6A31;color:#251811}
+    .foot{border-top-color:#CDAE9F}.foot p,.foot span{color:#82675B}
+    .toast{background:#EE6A31;color:#251811;box-shadow:0 10px 35px #7b483b44}
+    .section-title span{color:#A17B69!important}
+    #destinations > p{color:#765C50!important}
+    .panel p[style],.panel p[style*="color"]{color:#8A6A5C!important}
+    ::selection{background:#EE6A31;color:#21150F}
+  </style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar"><div class="wrap topbar-inner">
+    <a class="brand" href="#home" aria-label="홈으로 이동"><span class="brand-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m3 21 19-9-19-9 4 9-4 9Z"/><path d="M7 12h15"/></svg></span><span>YW TERMINAL<small>PERSONAL PORTFOLIO / 2026</small></span></a>
+    <nav class="nav" aria-label="주 메뉴"><a href="#about">ABOUT</a><a href="#work">WORK</a><a href="#destinations">GATES 01—03</a></nav>
+    <div class="top-status"><span class="dot"></span> AVAILABLE FOR CONNECTION</div>
+  </div></header>
+  <main id="home">
+    <div class="wrap hero"><div>
+      <div class="eyebrow">✳ WELCOME ABOARD &nbsp; / &nbsp; PERSONAL TERMINAL</div>
+      <h1 class="hero-heading">NEXT STOP,<br><span>MY STORY.</span></h1>
+      <p class="hero-desc">새로운 배움과 경험을 향해 나아가는 연우의 개인 터미널입니다. 교육의 가능성을 연결하고, 아이디어를 실행으로 옮기는 여정을 소개합니다.</p>
+      <div class="hero-actions"><a class="btn btn-primary" href="#about">탑승 시작하기 <span class="arrow">↗</span></a><a class="btn btn-secondary" href="#destinations">게이트 둘러보기 <span class="arrow">→</span></a></div>
+    </div><div class="terminal" aria-label="자기소개 탑승권 디자인">
+      <div class="terminal-top"><span class="terminal-label">DIGITAL BOARDING PASS</span><span class="signal" aria-hidden="true"><i></i><i></i><i></i></span></div>
+      <div class="terminal-main"><div class="flight-kicker"><span>PASSENGER / YEONWOO</span><span>YW-2026</span></div>
+        <div class="airport-route"><div><div class="airport-code">NOW</div><div class="airport-name">CURRENT CHAPTER</div></div><div class="plane-line"><span class="dash"></span><svg width="29" height="29" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 9.5 14.5M22 2l-7 20-5.5-7.5L2 9l20-7Z"/></svg><span class="dash"></span></div><div style="text-align:right"><div class="airport-code">NXT</div><div class="airport-name">NEXT POSSIBILITY</div></div></div>
+        <div class="flight-info"><div><div class="label">DEPARTMENT</div><div class="value">첨단교육팀</div></div><div><div class="label">GATE</div><div class="value">PORTFOLIO</div></div><div><div class="label">STATUS</div><div class="value green">BOARDING ●</div></div></div>
+      </div><div class="terminal-footer"><span>EXPLORE · LEARN · CONNECT</span><div class="barcodes" aria-hidden="true"></div></div>
+    </div></div>
+    <div class="ticker" aria-label="환영 배너"><div class="wrap ticker-inner"><span>✳ NOW BOARDING</span><b>↗</b><span>WELCOME TO MY PERSONAL TERMINAL</span><b>✳</b><span>YOUR JOURNEY STARTS HERE</span><b>↗</b><span>GATE 01 / 02 / 03</span></div></div>
+    <section id="about" class="wrap section"><div class="section-head"><div><div class="eyebrow">01 / PASSENGER INFORMATION</div><h2 class="section-title">탑승객 정보 <span style="color:#6e8798">/ About Me</span></h2></div><span class="section-no">TERMINAL DIRECTORY — A</span></div>
+      <div class="grid"><article class="panel"><div class="panel-label">PERSONAL PROFILE <span>↗</span></div><h3>안녕하세요, 연우입니다.</h3><p>배움의 기회를 넓히고, 좋은 아이디어가 실제 경험으로 이어지는 과정에 관심이 있습니다. 매일의 작은 시도를 모아 더 나은 결과를 만들어 가고자 합니다.</p><div class="details"><div><span class="detail-label">NAME</span><span class="detail-value">연우 / YEONWOO</span></div><div><span class="detail-label">DEPARTMENT</span><span class="detail-value">첨단교육팀</span></div><div><span class="detail-label">MBTI</span><span class="detail-value">추후 입력</span></div><div><span class="detail-label">KEYWORD</span><span class="detail-value">배움 · 연결 · 실행</span></div></div></article>
+      <article class="panel"><div class="panel-label">OFF-DUTY DESTINATIONS <span>✳</span></div><h3>일상 속의 새로운 영감</h3><p>업무 밖에서도 새로운 것에 호기심을 갖고 나만의 속도로 탐색합니다. 좋아하는 취미와 관심사를 이곳에 기록해 보세요.</p><div class="tag-list"><span class="tag">✈ 여행</span><span class="tag">♫ 음악</span><span class="tag">◉ 사진</span><span class="tag">＋ 새로운 경험</span></div><p style="margin-top:23px;font-size:11px;color:#7692a5">* 취미와 MBTI는 예시 및 입력 대기 항목으로, 실제 정보에 맞게 수정할 수 있습니다.</p></article></div>
+    </section>
+    <section id="work" class="wrap section"><div class="section-head"><div><div class="eyebrow">02 / FLIGHT OPERATIONS</div><h2 class="section-title">업무 안내 <span style="color:#6e8798">/ My Work</span></h2></div><span class="section-no">OPERATIONS BOARD — B</span></div>
+      <div class="grid"><article class="panel"><div class="panel-label">CURRENT ASSIGNMENT <span class="dot"></span></div><h3>첨단교육팀</h3><p>교육 현장에서 더 나은 경험을 만들기 위해 기획부터 운영, 개선까지의 과정을 연결합니다.</p><div class="tag-list"><span class="tag">EDUCATION</span><span class="tag">PLANNING</span><span class="tag">COLLABORATION</span></div></article>
+      <article class="panel"><div class="panel-label">RESPONSIBILITIES <span>03 ITEMS</span></div><div class="work-card"><span class="work-num">01</span><div><strong>교육 기획 및 운영</strong><p>프로그램의 목표와 운영 방안을 구체화하는 업무 영역</p></div></div><div class="work-card"><span class="work-num">02</span><div><strong>프로젝트 협업</strong><p>여러 구성원과 정보를 연결하고 실행을 지원하는 업무 영역</p></div></div><div class="work-card"><span class="work-num">03</span><div><strong>성과 정리 및 개선</strong><p>진행 과정을 기록하고 다음 개선 방향을 탐색하는 업무 영역</p></div></div><p style="font-size:10px;color:#7692a5;margin-top:19px">* 담당업무는 예시 문구입니다. 실제 역할에 맞게 변경하세요.</p></article></div>
+    </section>
+    <section id="destinations" class="wrap section"><div class="section-head"><div><div class="eyebrow">03 / DEPARTURE GATES</div><h2 class="section-title">다음 목적지 <span style="color:#6e8798">/ Explore</span></h2></div><span class="section-no">SELECT YOUR GATE — C</span></div><p style="color:#9bafbf;font-size:13px;line-height:1.8;margin:0">게이트를 선택하면 각 번호의 HTML 페이지로 이동합니다. 아직 파일이 없다면 준비 중 안내가 표시됩니다.</p>
+      <div class="destinations"><a class="dest" href="1.html" data-gate="1"><div class="dest-top"><span>GATE 01</span><span>DESTINATION / 1.HTML</span></div><div class="dest-number">01</div><div class="dest-bottom"><strong>PROJECT ONE</strong><span class="dest-arrow">↗</span></div></a><a class="dest" href="2.html" data-gate="2"><div class="dest-top"><span>GATE 02</span><span>DESTINATION / 2.HTML</span></div><div class="dest-number">02</div><div class="dest-bottom"><strong>PROJECT TWO</strong><span class="dest-arrow">↗</span></div></a><a class="dest" href="3.html" data-gate="3"><div class="dest-top"><span>GATE 03</span><span>DESTINATION / 3.HTML</span></div><div class="dest-number">03</div><div class="dest-bottom"><strong>PROJECT THREE</strong><span class="dest-arrow">↗</span></div></a></div>
+    </section>
+  </main>
+  <footer class="wrap foot"><div><strong>YW TERMINAL <span style="color:var(--accent)">✳</span></strong><p>A PERSONAL JOURNEY THROUGH IDEAS & EXPERIENCES</p></div><span>© 2026 YEONWOO · DESIGNED FOR THE NEXT DESTINATION</span></footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+  const toast = document.getElementById('toast');let toastTimer;
+  document.querySelectorAll('[data-gate]').forEach(link=>{
+    link.addEventListener('click',async event=>{
+      // When the file exists, follow the actual link. When it does not, show a clear message.
+      if(location.protocol==='file:'){
+        // Local file mode has no reliable way to check for siblings without opening them.
+        return;
+      }
+      event.preventDefault();
+      const target=link.getAttribute('href');
+      try{
+        const response=await fetch(target,{method:'HEAD',cache:'no-store'});
+        if(response.ok){location.href=target;return;}
+      }catch(e){}
+      clearTimeout(toastTimer);
+      toast.textContent=`GATE ${link.dataset.gate} · ${target} 파일을 추가하면 연결됩니다.`;
+      toast.classList.add('show');toastTimer=setTimeout(()=>toast.classList.remove('show'),3200);
+    });
+  });
+</script>
+</body>
+</html>
