@@ -5,3 +5,5 @@ https://hollobit.github.io/PAX/
 https://github.com/chrisryugj/kordoc
 
 https://github.com/chrisryugj/kordoc-ai/releases
+
+https://gitlab.aigov.go.kr/chrisryugj/korean-law-mcp
